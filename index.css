@@ -1,11 +1,30 @@
 html {
-    margin: 0;
-    padding: 0;
-    /* background-color: aquamarine; */
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
 body {
-    background:black;
-    padding:0;
-    margin:0;
+    padding:0px;
+    margin:0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
+
+.container {
+    padding:0px;
+    margin:0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#game {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    overflow: hidden;
+  }
