@@ -1,6 +1,7 @@
 import { Ball, Speed } from "./ball";
 import { Bat } from "./bat";
 import { Position } from "./position";
+import "./style.css";
 
 class GameState {
   leftBat: Bat;

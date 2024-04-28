@@ -14,17 +14,13 @@ body {
     overflow: hidden;
 }
 
-.container {
-    padding:0px;
-    margin:0px;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+#container {
+    display: flex;
+    justify-content: center;
 }
 
 #game {
     width: 100vw;
     height: 100vh;
     display: block;
-    overflow: hidden;
-  }
+}

@@ -28,6 +28,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(["dist"]),
-    new HtmlWebpackPlugin({ title: "Typescript Project" }),
+    new HtmlWebpackPlugin({ title: "Pong Project" }),
   ],
 };
