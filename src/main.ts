@@ -1,5 +1,6 @@
 import { Ball, Speed } from "./ball";
 import { Bat } from "./bat";
+import { BALL_SPEED, BAT_H, BAT_SPEED, BAT_V, FPS, SCALE } from "./constants";
 import { Position } from "./position";
 import "./style.css";
 
@@ -14,15 +15,13 @@ class GameState {
   }
 }
 
-const FPS = 30;
-
 var canvas: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
 
 // Initialize game state
 const leftBat = new Bat(new Position(0, 0));
 const rightBat = new Bat(new Position(0, 0));
-const ball = new Ball(new Position(0, 0), new Speed(-5, 0));
+const ball = new Ball(new Position(0, 0), new Speed(-BALL_SPEED, 0));
 
 var gameState: GameState = new GameState(leftBat, rightBat, ball);
 
@@ -38,11 +37,56 @@ const drawCanvas = (
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Fill the background
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   leftBat.draw(ctx);
   rightBat.draw(ctx);
   ball.draw(ctx);
+
+  // Draw line at half of left bat
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(0, leftBat.position.y + (28 / 5) * 10 * 0.5);
+  ctx.lineTo(canvas.width, leftBat.position.y + (28 / 5) * 10 * 0.5);
+  ctx.strokeStyle = "#ff0000";
+  ctx.stroke();
+  ctx.restore();
+
+  // Draw line at end of left bat
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(0, leftBat.position.y);
+  ctx.lineTo(canvas.width, leftBat.position.y);
+  ctx.strokeStyle = "#ffF000";
+  ctx.stroke();
+  ctx.restore();
+
+  // Draw x axis at left bat
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(leftBat.position.x, 0);
+  ctx.lineTo(leftBat.position.x, canvas.height);
+  ctx.strokeStyle = "#ffF000";
+  ctx.stroke();
+  ctx.restore();
+
+  // Draw x axis at right bat
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(rightBat.position.x + BAT_H * SCALE, 0);
+  ctx.lineTo(rightBat.position.x + BAT_H * SCALE, canvas.height);
+  ctx.strokeStyle = "blue";
+  ctx.stroke();
+  ctx.restore();
+
+  // Draw x axis at right bat
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(rightBat.position.x, 0);
+  ctx.lineTo(rightBat.position.x, canvas.height);
+  ctx.strokeStyle = "#ffF000";
+  ctx.stroke();
+  ctx.restore();
 };
 
 window.addEventListener("resize", () => drawCanvas(canvas, ctx, gameState));
@@ -59,7 +103,6 @@ window.onload = () => {
   container.appendChild(canvas);
   document.body.appendChild(container);
   ctx = canvas.getContext("2d");
-
   // Initialize objects position now that canvas
   // is defined
 
@@ -77,6 +120,7 @@ window.onload = () => {
 
   const BALL_STARTING_H = canvas.width / 2;
   const BALL_STARTING_V = canvas.height / 2;
+
   ball.position.x = BALL_STARTING_H;
   ball.position.y = BALL_STARTING_V;
   ball.setInitialPosition(new Position(BALL_STARTING_H, BALL_STARTING_V));
@@ -92,9 +136,6 @@ const update = (
   ball.moveProcess(canvas.width, canvas.height);
   executeBatMoves();
   ball.checkBatCollision(leftBat.position, rightBat.position);
-  // if (ball.checkBatCollision(leftBat.position, rightBat.position)) {
-  //   // onBatCollision();
-  // }
 };
 
 const gameLoop = () => {
@@ -111,25 +152,36 @@ var controller: { [keyName: string]: { pressed: boolean; func: () => void } } =
     KeyW: {
       pressed: false,
       func: () => {
-        leftBat.position.y -= 15;
+        if (leftBat.position.y - BAT_SPEED <= 0) {
+          leftBat.position.y = 0;
+        } else {
+          leftBat.position.y -= BAT_SPEED;
+        }
       },
     },
     KeyS: {
       pressed: false,
       func: () => {
-        leftBat.position.y += 15;
+        if (
+          leftBat.position.y + BAT_SPEED + BAT_V * SCALE * 0.5 * 2 >=
+          canvas.height
+        ) {
+          leftBat.position.y = canvas.height - BAT_V * SCALE * 0.5 * 2;
+        } else {
+          leftBat.position.y += BAT_SPEED;
+        }
       },
     },
     ArrowUp: {
       pressed: false,
       func: () => {
-        rightBat.position.y -= 15;
+        rightBat.position.y -= BAT_SPEED;
       },
     },
     ArrowDown: {
       pressed: false,
       func: () => {
-        rightBat.position.y += 15;
+        rightBat.position.y += BAT_SPEED;
       },
     },
   };
