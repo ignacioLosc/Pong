@@ -1,10 +1,13 @@
 import { Ball, Speed } from "./ball";
 import { Bat } from "./bat";
 import {
+  BALL_H,
   BALL_SPEED,
+  BALL_V,
   BAT_H,
   BAT_SPEED,
   BAT_V,
+  DEBUG_BALL,
   DEBUG_MODE,
   FPS,
   SCALE,
@@ -79,7 +82,7 @@ const drawCanvas = (
     ctx.stroke();
     ctx.restore();
 
-    // Draw x axis at right bat
+    // Draw x axis at right bat right
     ctx.save();
     ctx.beginPath();
     ctx.moveTo(rightBat.position.x + BAT_H * SCALE, 0);
@@ -88,7 +91,7 @@ const drawCanvas = (
     ctx.stroke();
     ctx.restore();
 
-    // Draw x axis at right bat
+    // Draw x axis at right bat left
     ctx.save();
     ctx.beginPath();
     ctx.moveTo(rightBat.position.x, 0);
@@ -96,6 +99,44 @@ const drawCanvas = (
     ctx.strokeStyle = "#ffF000";
     ctx.stroke();
     ctx.restore();
+
+    if (DEBUG_BALL) {
+      // Draw y axis at ball top
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, ball.position.y);
+      ctx.lineTo(canvas.width, ball.position.y);
+      ctx.strokeStyle = "lightblue";
+      ctx.stroke();
+      ctx.restore();
+
+      // Draw x axis at ball left
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(ball.position.x, 0);
+      ctx.lineTo(ball.position.x, canvas.height);
+      ctx.strokeStyle = "lightgreen";
+      ctx.stroke();
+      ctx.restore();
+
+      // Draw y axis at ball bottom
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, ball.position.y + BALL_V * SCALE);
+      ctx.lineTo(canvas.width, ball.position.y + BALL_V * SCALE);
+      ctx.strokeStyle = "red";
+      ctx.stroke();
+      ctx.restore();
+
+      // Draw x axis at ball right
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(ball.position.x + BALL_H * SCALE, 0);
+      ctx.lineTo(ball.position.x + BALL_H * SCALE, canvas.height);
+      ctx.strokeStyle = "yellow";
+      ctx.stroke();
+      ctx.restore();
+    }
   }
 };
 
