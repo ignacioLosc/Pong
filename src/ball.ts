@@ -99,15 +99,22 @@ export class Ball {
         this.speed.speedY = 0;
         this.speed.speedX = this.speed.speedX * -1;
       } else if (
-        this.position.y > leftBatPosition.y + BAT_V * SCALE * 0.5 &&
-        this.position.y <= leftBatPosition.y + BAT_V * SCALE * 0.5 * 2
+        (this.position.y > leftBatPosition.y + BAT_V * SCALE * 0.5 &&
+          this.position.y <= leftBatPosition.y + BAT_V * SCALE * 0.5 * 2) ||
+        (this.position.y + BALL_V * SCALE >
+          leftBatPosition.y + BAT_V * SCALE * 0.5 &&
+          this.position.y + BALL_V * SCALE <=
+            leftBatPosition.y + BAT_V * SCALE * 0.5 * 2)
       ) {
         // console.log("lower half");
         this.speed.speedY = Math.abs(this.speed.speedX);
         this.speed.speedX = this.speed.speedX * -1;
       } else if (
-        this.position.y <= leftBatPosition.y + BAT_V * SCALE * 0.5 &&
-        this.position.y >= leftBatPosition.y
+        (this.position.y <= leftBatPosition.y + BAT_V * SCALE * 0.5 &&
+          this.position.y >= leftBatPosition.y) ||
+        (this.position.y + BALL_V * SCALE <=
+          leftBatPosition.y + BAT_V * SCALE * 0.5 &&
+          this.position.y + BALL_V * SCALE >= leftBatPosition.y)
       ) {
         // console.log("upper half");
         this.speed.speedY = Math.abs(this.speed.speedX) * -1;
