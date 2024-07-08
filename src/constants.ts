@@ -1,5 +1,5 @@
 const BASE_SPEED_FPS = 30;
-export const FPS = 30;
+export const FPS = 165;
 export const BALL_SPEED = -10 * (BASE_SPEED_FPS / FPS); //15
 export const BAT_SPEED = 15 * (BASE_SPEED_FPS / FPS);
 export const BALL_H = 1;
@@ -10,5 +10,7 @@ export const BAT_V = 28 / 5;
 export const BORDER_H = 0.5;
 export const BORDER_V = 6 / 5;
 export const SCALE = 20;
-export const DEBUG_MODE = false;
-export const DEBUG_BALL = true;
+export const DEBUG_MODE = true;
+export const DEBUG_BALL = false;
+export const DEBUG_LEFT_BAT = true;
+export const DEBUG_RIGHT_BAT = true;
