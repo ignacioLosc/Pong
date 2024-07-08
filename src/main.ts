@@ -255,11 +255,8 @@ var controller: { [keyName: string]: { pressed: boolean; func: () => void } } =
     KeyS: {
       pressed: false,
       func: () => {
-        if (
-          leftBat.position.y + BAT_SPEED + BAT_V * SCALE * 0.5 * 2 >=
-          canvas.height
-        ) {
-          leftBat.position.y = canvas.height - BAT_V * SCALE * 0.5 * 2;
+        if (leftBat.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
+          leftBat.position.y = canvas.height - BAT_V * SCALE;
         } else {
           leftBat.position.y += BAT_SPEED;
         }
@@ -268,13 +265,21 @@ var controller: { [keyName: string]: { pressed: boolean; func: () => void } } =
     ArrowUp: {
       pressed: false,
       func: () => {
-        rightBat.position.y -= BAT_SPEED;
+        if (rightBat.position.y - BAT_SPEED <= 0) {
+          rightBat.position.y = 0;
+        } else {
+          rightBat.position.y -= BAT_SPEED;
+        }
       },
     },
     ArrowDown: {
       pressed: false,
       func: () => {
-        rightBat.position.y += BAT_SPEED;
+        if (rightBat.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
+          rightBat.position.y = canvas.height - BAT_V * SCALE;
+        } else {
+          rightBat.position.y += BAT_SPEED;
+        }
       },
     },
   };
