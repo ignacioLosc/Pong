@@ -1,5 +1,5 @@
 import { Position } from "./position";
-import { BALL_H, BALL_V, BAT_H, BAT_V, SCALE } from "./constants";
+import { BALL_H, BALL_SPEED, BALL_V, BAT_H, BAT_V, SCALE } from "./constants";
 
 export class Speed {
   speedX: number;
@@ -20,6 +20,10 @@ export class Ball {
 
   setInitialPosition(initialPosition: Position) {
     this.initialPosition = initialPosition;
+  }
+
+  setBallSpeed(ballSpeed: Speed) {
+    this.speed = ballSpeed;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -49,13 +53,36 @@ export class Ball {
         this.initialPosition.x,
         this.initialPosition.y
       );
+      this.setBallSpeed(new Speed(-BALL_SPEED, 0));
     }
   }
 
   checkRightBatCollision(rightBatPosition: Position) {
-    if (this.position.x >= rightBatPosition.x) {
-      this.position.x = rightBatPosition.x;
-      this.speed.speedX = this.speed.speedX * -1;
+    if (
+      this.position.x >= rightBatPosition.x - BAT_H * SCALE &&
+      this.position.x <= rightBatPosition.x + BAT_H * SCALE
+    ) {
+      if (this.position.y === rightBatPosition.y + BAT_V * SCALE * 0.5) {
+        this.speed.speedY = 0;
+        this.position.x = rightBatPosition.x;
+        this.speed.speedX = this.speed.speedX * -1;
+      } else if (
+        this.position.y > rightBatPosition.y + BAT_V * SCALE * 0.5 &&
+        this.position.y <= rightBatPosition.y + BAT_V * SCALE * 0.5 * 2
+      ) {
+        // console.log("lower half");
+        this.speed.speedY = Math.abs(this.speed.speedX);
+        this.position.x = rightBatPosition.x;
+        this.speed.speedX = this.speed.speedX * -1;
+      } else if (
+        this.position.y <= rightBatPosition.y + BAT_V * SCALE * 0.5 &&
+        this.position.y >= rightBatPosition.y
+      ) {
+        // console.log("upper half");
+        this.speed.speedY = Math.abs(this.speed.speedX) * -1;
+        this.position.x = rightBatPosition.x;
+        this.speed.speedX = this.speed.speedX * -1;
+      }
     }
   }
 
@@ -89,41 +116,8 @@ export class Ball {
   }
 
   checkBatCollision(leftBatPosition: Position, rightBatPosition: Position) {
-    //console.log(this.position.y);
-    // console.log(rightBatPosition.y);
     this.checkRightBatCollision(rightBatPosition);
     this.checkLeftBatCollision(leftBatPosition);
-    // if (
-    //   this.position.x >= rightBatPosition.x &&
-    //   this.position.y >= rightBatPosition.y - (BAT_V * SCALE) / 2 &&
-    //   this.position.y < rightBatPosition.y
-    // ) {
-    //   this.speed.speedY = this.speed.speedX * -1;
-    //   this.speed.speedX = this.speed.speedX * -1;
-    // }
-
-    // else if (
-    //   this.position.x >= rightBatPosition.x &&
-    //   this.position.y <= rightBatPosition.y + (BAT_V * SCALE) / 2 &&
-    //   this.position.y > rightBatPosition.y
-    // ) {
-    //   this.speed.speedY = this.speed.speedX;
-    //   this.speed.speedX = this.speed.speedX * -1;
-    // } else if (
-    //   this.position.x <= leftBatPosition.x &&
-    //   this.position.y >= leftBatPosition.y - (BAT_V * SCALE) / 2 &&
-    //   this.position.y < leftBatPosition.y
-    // ) {
-    //   this.speed.speedY = this.speed.speedX * -1;
-    //   this.speed.speedX = this.speed.speedX * -1;
-    // } else if (
-    //   this.position.x <= leftBatPosition.x &&
-    //   this.position.y <= leftBatPosition.y + (BAT_V * SCALE) / 2 &&
-    //   this.position.y > leftBatPosition.y
-    // ) {
-    //   this.speed.speedY = this.speed.speedX;
-    //   this.speed.speedX = this.speed.speedX * -1;
-    // }
   }
 
   checkCanvasCollision(limitY: number) {
