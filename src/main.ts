@@ -1,6 +1,14 @@
 import { Ball, Speed } from "./ball";
 import { Bat } from "./bat";
-import { BALL_SPEED, BAT_H, BAT_SPEED, BAT_V, FPS, SCALE } from "./constants";
+import {
+  BALL_SPEED,
+  BAT_H,
+  BAT_SPEED,
+  BAT_V,
+  DEBUG_MODE,
+  FPS,
+  SCALE,
+} from "./constants";
 import { Position } from "./position";
 import "./style.css";
 
@@ -43,50 +51,52 @@ const drawCanvas = (
   rightBat.draw(ctx);
   ball.draw(ctx);
 
-  // Draw line at half of left bat
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(0, leftBat.position.y + (28 / 5) * 10 * 0.5);
-  ctx.lineTo(canvas.width, leftBat.position.y + (28 / 5) * 10 * 0.5);
-  ctx.strokeStyle = "#ff0000";
-  ctx.stroke();
-  ctx.restore();
+  if (DEBUG_MODE) {
+    // Draw line at half of left bat
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(0, leftBat.position.y + (28 / 5) * 10 * 0.5);
+    ctx.lineTo(canvas.width, leftBat.position.y + (28 / 5) * 10 * 0.5);
+    ctx.strokeStyle = "#ff0000";
+    ctx.stroke();
+    ctx.restore();
 
-  // Draw line at end of left bat
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(0, leftBat.position.y);
-  ctx.lineTo(canvas.width, leftBat.position.y);
-  ctx.strokeStyle = "#ffF000";
-  ctx.stroke();
-  ctx.restore();
+    // Draw line at end of left bat
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(0, leftBat.position.y);
+    ctx.lineTo(canvas.width, leftBat.position.y);
+    ctx.strokeStyle = "#ffF000";
+    ctx.stroke();
+    ctx.restore();
 
-  // Draw x axis at left bat
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(leftBat.position.x, 0);
-  ctx.lineTo(leftBat.position.x, canvas.height);
-  ctx.strokeStyle = "#ffF000";
-  ctx.stroke();
-  ctx.restore();
+    // Draw x axis at left bat
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(leftBat.position.x, 0);
+    ctx.lineTo(leftBat.position.x, canvas.height);
+    ctx.strokeStyle = "#ffF000";
+    ctx.stroke();
+    ctx.restore();
 
-  // Draw x axis at right bat
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(rightBat.position.x + BAT_H * SCALE, 0);
-  ctx.lineTo(rightBat.position.x + BAT_H * SCALE, canvas.height);
-  ctx.strokeStyle = "blue";
-  ctx.stroke();
-  ctx.restore();
+    // Draw x axis at right bat
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(rightBat.position.x + BAT_H * SCALE, 0);
+    ctx.lineTo(rightBat.position.x + BAT_H * SCALE, canvas.height);
+    ctx.strokeStyle = "blue";
+    ctx.stroke();
+    ctx.restore();
 
-  // Draw x axis at right bat
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(rightBat.position.x, 0);
-  ctx.lineTo(rightBat.position.x, canvas.height);
-  ctx.strokeStyle = "#ffF000";
-  ctx.stroke();
-  ctx.restore();
+    // Draw x axis at right bat
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(rightBat.position.x, 0);
+    ctx.lineTo(rightBat.position.x, canvas.height);
+    ctx.strokeStyle = "#ffF000";
+    ctx.stroke();
+    ctx.restore();
+  }
 };
 
 window.addEventListener("resize", () => drawCanvas(canvas, ctx, gameState));

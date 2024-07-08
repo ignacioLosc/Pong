@@ -10,3 +10,4 @@ export const BAT_V = 28 / 5;
 export const BORDER_H = 0.5;
 export const BORDER_V = 6 / 5;
 export const SCALE = 20;
+export const DEBUG_MODE = true;
