@@ -64,7 +64,6 @@ export class Ball {
     ) {
       if (this.position.y === rightBatPosition.y + BAT_V * SCALE * 0.5) {
         this.speed.speedY = 0;
-        this.position.x = rightBatPosition.x;
         this.speed.speedX = this.speed.speedX * -1;
       } else if (
         this.position.y > rightBatPosition.y + BAT_V * SCALE * 0.5 &&
@@ -72,7 +71,6 @@ export class Ball {
       ) {
         // console.log("lower half");
         this.speed.speedY = Math.abs(this.speed.speedX);
-        this.position.x = rightBatPosition.x;
         this.speed.speedX = this.speed.speedX * -1;
       } else if (
         this.position.y <= rightBatPosition.y + BAT_V * SCALE * 0.5 &&
@@ -80,7 +78,6 @@ export class Ball {
       ) {
         // console.log("upper half");
         this.speed.speedY = Math.abs(this.speed.speedX) * -1;
-        this.position.x = rightBatPosition.x;
         this.speed.speedX = this.speed.speedX * -1;
       }
     }
@@ -93,7 +90,6 @@ export class Ball {
     ) {
       if (this.position.y === leftBatPosition.y + BAT_V * SCALE * 0.5) {
         this.speed.speedY = 0;
-        this.position.x = leftBatPosition.x;
         this.speed.speedX = this.speed.speedX * -1;
       } else if (
         this.position.y > leftBatPosition.y + BAT_V * SCALE * 0.5 &&
@@ -101,7 +97,6 @@ export class Ball {
       ) {
         // console.log("lower half");
         this.speed.speedY = Math.abs(this.speed.speedX);
-        this.position.x = leftBatPosition.x;
         this.speed.speedX = this.speed.speedX * -1;
       } else if (
         this.position.y <= leftBatPosition.y + BAT_V * SCALE * 0.5 &&
@@ -109,7 +104,6 @@ export class Ball {
       ) {
         // console.log("upper half");
         this.speed.speedY = Math.abs(this.speed.speedX) * -1;
-        this.position.x = leftBatPosition.x;
         this.speed.speedX = this.speed.speedX * -1;
       }
     }
