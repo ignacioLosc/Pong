@@ -61,18 +61,27 @@ const drawCanvas = (
       // Draw line at half of left bat
       ctx.save();
       ctx.beginPath();
-      ctx.moveTo(0, leftBat.position.y + (28 / 5) * 10 * 0.5);
-      ctx.lineTo(canvas.width, leftBat.position.y + (28 / 5) * 10 * 0.5);
+      ctx.moveTo(0, leftBat.position.y + BAT_V * SCALE * 0.5);
+      ctx.lineTo(canvas.width, leftBat.position.y + BAT_V * SCALE * 0.5);
       ctx.strokeStyle = "#ff0000";
       ctx.stroke();
       ctx.restore();
 
-      // Draw line at end of left bat
+      // Draw line at top of left bat
       ctx.save();
       ctx.beginPath();
       ctx.moveTo(0, leftBat.position.y);
       ctx.lineTo(canvas.width, leftBat.position.y);
       ctx.strokeStyle = "#ffF000";
+      ctx.stroke();
+      ctx.restore();
+
+      // Draw line at bottom of left bat
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, leftBat.position.y + BAT_V * SCALE);
+      ctx.lineTo(canvas.width, leftBat.position.y + BAT_V * SCALE);
+      ctx.strokeStyle = "lightgreen";
       ctx.stroke();
       ctx.restore();
 
@@ -111,6 +120,24 @@ const drawCanvas = (
       ctx.moveTo(rightBat.position.x, 0);
       ctx.lineTo(rightBat.position.x, canvas.height);
       ctx.strokeStyle = "#ffF000";
+      ctx.stroke();
+      ctx.restore();
+
+      // Draw line at top of right bat
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, rightBat.position.y);
+      ctx.lineTo(canvas.width, rightBat.position.y);
+      ctx.strokeStyle = "#ffF000";
+      ctx.stroke();
+      ctx.restore();
+
+      // Draw line at bottom of right bat
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, rightBat.position.y + BAT_V * SCALE);
+      ctx.lineTo(canvas.width, rightBat.position.y + BAT_V * SCALE);
+      ctx.strokeStyle = "lightgreen";
       ctx.stroke();
       ctx.restore();
     }
