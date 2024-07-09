@@ -1,14 +1,7 @@
 import { Position } from "./position";
 import { BALL_H, BALL_SPEED, BALL_V, BAT_H, BAT_V, SCALE } from "./constants";
+import { Speed } from "./speed";
 
-export class Speed {
-  speedX: number;
-  speedY: number;
-  constructor(speedX: number, speedY: number) {
-    this.speedX = speedX;
-    this.speedY = speedY;
-  }
-}
 export class Ball {
   position: Position;
   initialPosition: Position;

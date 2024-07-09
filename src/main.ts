@@ -1,4 +1,4 @@
-import { Ball, Speed } from "./ball";
+import { Ball } from "./ball";
 import { Bat } from "./bat";
 import {
   BALL_H,
@@ -15,6 +15,7 @@ import {
   SCALE,
 } from "./constants";
 import { Position } from "./position";
+import { Speed } from "./speed";
 import "./style.css";
 
 class GameState {
