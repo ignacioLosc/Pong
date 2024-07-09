@@ -11,13 +11,14 @@ export class CollisionDetector {
   }
 
   detectCollisions() {
-    this.checkRightBatCollision();
-    this.checkLeftBatCollision();
-    // if (this.checkRightBatCollision()) {
-    //   this.collisionResolver.resolveRightBatCollision();
-    // } else if (this.checkLeftBatCollision()) {
-    //   this.collisionResolver.resolveLeftBatCollision();
-    // }
+    const rightBatCollision = this.checkRightBatCollision();
+    if (rightBatCollision) {
+      this.collisionResolver.resolveBallBatCollision(rightBatCollision);
+    }
+    const leftBatCollision = this.checkLeftBatCollision();
+    if (leftBatCollision) {
+      this.collisionResolver.resolveBallBatCollision(leftBatCollision);
+    }
   }
 
   checkRightBatCollision() {
@@ -32,9 +33,7 @@ export class CollisionDetector {
         this.gameState.ball.position.y * 0.5 ===
         this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5
       ) {
-        this.gameState.ball.speed.speedY = 0;
-        this.gameState.ball.speed.speedX =
-          this.gameState.ball.speed.speedX * -1;
+        return "HALF";
       } else if (
         (this.gameState.ball.position.y >
           this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 &&
@@ -46,14 +45,7 @@ export class CollisionDetector {
             this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 * 2)
       ) {
         // console.log("lower half");
-        this.gameState.ball.speed.speedY = Math.abs(
-          this.gameState.ball.speed.speedX +
-            this.gameState.ball.speed.speedX * 0.1
-        );
-        this.gameState.ball.speed.speedX =
-          (this.gameState.ball.speed.speedX +
-            this.gameState.ball.speed.speedX * 0.1) *
-          -1;
+        return "BOTTOM";
       } else if (
         (this.gameState.ball.position.y <=
           this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 &&
@@ -65,16 +57,10 @@ export class CollisionDetector {
             this.gameState.rightBat.position.y)
       ) {
         // console.log("upper half");
-        this.gameState.ball.speed.speedY =
-          Math.abs(
-            this.gameState.ball.speed.speedX +
-              this.gameState.ball.speed.speedX * 0.1
-          ) * -1;
-        this.gameState.ball.speed.speedX =
-          (this.gameState.ball.speed.speedX +
-            this.gameState.ball.speed.speedX * 0.1) *
-          -1;
+        return "TOP";
       }
+    } else {
+      return null;
     }
   }
 
@@ -89,9 +75,7 @@ export class CollisionDetector {
         this.gameState.ball.position.y ===
         this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5
       ) {
-        this.gameState.ball.speed.speedY = 0;
-        this.gameState.ball.speed.speedX =
-          this.gameState.ball.speed.speedX * -1;
+        return "HALF";
       } else if (
         (this.gameState.ball.position.y >
           this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 &&
@@ -103,14 +87,7 @@ export class CollisionDetector {
             this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 * 2)
       ) {
         // console.log("lower half");
-        this.gameState.ball.speed.speedY = Math.abs(
-          this.gameState.ball.speed.speedX +
-            this.gameState.ball.speed.speedX * 0.1
-        );
-        this.gameState.ball.speed.speedX =
-          (this.gameState.ball.speed.speedX +
-            this.gameState.ball.speed.speedX * 0.1) *
-          -1;
+        return "BOTTOM";
       } else if (
         (this.gameState.ball.position.y <=
           this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 &&
@@ -122,16 +99,10 @@ export class CollisionDetector {
             this.gameState.leftBat.position.y)
       ) {
         // console.log("upper half");
-        this.gameState.ball.speed.speedY =
-          Math.abs(
-            this.gameState.ball.speed.speedX +
-              this.gameState.ball.speed.speedX * 0.1
-          ) * -1;
-        this.gameState.ball.speed.speedX =
-          (this.gameState.ball.speed.speedX +
-            this.gameState.ball.speed.speedX * 0.1) *
-          -1;
+        return "TOP";
       }
+    } else {
+      return null;
     }
   }
 }
