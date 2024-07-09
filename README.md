@@ -1,6 +1,6 @@
 Pong game reproduction made in React with Typescript and canvas
 
-Left Bat moves with `W, A, S, D` and right Bat moves with `Arrow Up, Arrow Left, Arrow Down, Arrow Right`
+Left Bat moves with `W, S` and right Bat moves with `Arrow Up, Arrow Down`
 
 ### TODO
 
