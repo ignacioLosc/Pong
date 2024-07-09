@@ -60,7 +60,8 @@ export class Ball {
   checkRightBatCollision(rightBatPosition: Position) {
     if (
       this.position.x + BALL_H * SCALE >= rightBatPosition.x &&
-      this.position.x + BALL_H * SCALE <= rightBatPosition.x + BAT_H * SCALE
+      this.position.x + BALL_H * SCALE <= rightBatPosition.x + BAT_H * SCALE &&
+      this.speed.speedX > 0
     ) {
       if (this.position.y * 0.5 === rightBatPosition.y + BAT_V * SCALE * 0.5) {
         this.speed.speedY = 0;
@@ -93,7 +94,8 @@ export class Ball {
   checkLeftBatCollision(leftBatPosition: Position) {
     if (
       this.position.x <= leftBatPosition.x + BAT_H * SCALE &&
-      this.position.x >= leftBatPosition.x
+      this.position.x >= leftBatPosition.x &&
+      this.speed.speedX < 0
     ) {
       if (this.position.y === leftBatPosition.y + BAT_V * SCALE * 0.5) {
         this.speed.speedY = 0;
