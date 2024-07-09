@@ -18,7 +18,7 @@ import { Position } from "./position";
 import { Speed } from "./speed";
 import "./style.css";
 
-class GameState {
+export class GameState {
   leftBat: Bat;
   rightBat: Bat;
   ball: Ball;
@@ -246,41 +246,25 @@ var controller: { [keyName: string]: { pressed: boolean; func: () => void } } =
     KeyW: {
       pressed: false,
       func: () => {
-        if (leftBat.position.y - BAT_SPEED <= 0) {
-          leftBat.position.y = 0;
-        } else {
-          leftBat.position.y -= BAT_SPEED;
-        }
+        return leftBat.moveUp("LEFT");
       },
     },
     KeyS: {
       pressed: false,
       func: () => {
-        if (leftBat.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
-          leftBat.position.y = canvas.height - BAT_V * SCALE;
-        } else {
-          leftBat.position.y += BAT_SPEED;
-        }
+        return leftBat.moveDown("LEFT", canvas);
       },
     },
     ArrowUp: {
       pressed: false,
       func: () => {
-        if (rightBat.position.y - BAT_SPEED <= 0) {
-          rightBat.position.y = 0;
-        } else {
-          rightBat.position.y -= BAT_SPEED;
-        }
+        return rightBat.moveUp("RIGHT");
       },
     },
     ArrowDown: {
       pressed: false,
       func: () => {
-        if (rightBat.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
-          rightBat.position.y = canvas.height - BAT_V * SCALE;
-        } else {
-          rightBat.position.y += BAT_SPEED;
-        }
+        return rightBat.moveDown("RIGHT", canvas);
       },
     },
   };

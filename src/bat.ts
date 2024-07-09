@@ -1,4 +1,4 @@
-import { BAT_H, BAT_V, SCALE } from "./constants";
+import { BAT_H, BAT_SPEED, BAT_V, SCALE } from "./constants";
 import { Position } from "./position";
 
 export class Bat {
@@ -19,7 +19,34 @@ export class Bat {
     ctx.restore();
   }
 
-  moveProcess() {
-    this.position.y += 0;
+  moveUp(type: string) {
+    if (type === "LEFT") {
+      if (this.position.y - BAT_SPEED <= 0) {
+        this.position.y = 0;
+      } else {
+        this.position.y -= BAT_SPEED;
+      }
+    } else {
+      if (this.position.y - BAT_SPEED <= 0) {
+        this.position.y = 0;
+      } else {
+        this.position.y -= BAT_SPEED;
+      }
+    }
+  }
+  moveDown(type: string, canvas: any) {
+    if (type === "LEFT") {
+      if (this.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
+        this.position.y = canvas.height - BAT_V * SCALE;
+      } else {
+        this.position.y += BAT_SPEED;
+      }
+    } else {
+      if (this.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
+        this.position.y = canvas.height - BAT_V * SCALE;
+      } else {
+        this.position.y += BAT_SPEED;
+      }
+    }
   }
 }
