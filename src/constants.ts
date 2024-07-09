@@ -1,8 +1,8 @@
 const BASE_SPEED_FPS = 30;
 export const FPS = 165;
 export const BALL_SPEED = -10 * (BASE_SPEED_FPS / FPS); //15
+export const BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION = 10;
 export const BAT_SPEED = 15 * (BASE_SPEED_FPS / FPS);
-export const BAT_SPEED_PERCENTAGE_INCREASE_ON_COLLISION = 10;
 export const BALL_H = 1;
 export const BALL_V = 1;
 export const TEXT_WIDTH = 1;

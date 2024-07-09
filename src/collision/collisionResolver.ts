@@ -1,4 +1,4 @@
-import { BAT_SPEED_PERCENTAGE_INCREASE_ON_COLLISION } from "../constants";
+import { BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION } from "../constants";
 import { GameState } from "../main";
 
 export class CollisionResolver {
@@ -19,24 +19,24 @@ export class CollisionResolver {
           Math.abs(
             this.gameState.ball.speed.speedX +
               this.gameState.ball.speed.speedX *
-                (BAT_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)
+                (BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)
           ) * -1;
         this.gameState.ball.speed.speedX =
           (this.gameState.ball.speed.speedX +
             this.gameState.ball.speed.speedX *
-              (BAT_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)) *
+              (BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)) *
           -1;
         break;
       case "BOTTOM":
         this.gameState.ball.speed.speedY = Math.abs(
           this.gameState.ball.speed.speedX +
             this.gameState.ball.speed.speedX *
-              (BAT_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)
+              (BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)
         );
         this.gameState.ball.speed.speedX =
           (this.gameState.ball.speed.speedX +
             this.gameState.ball.speed.speedX *
-              (BAT_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)) *
+              (BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)) *
           -1;
         break;
       default:
