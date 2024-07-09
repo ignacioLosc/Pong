@@ -1,22 +1,12 @@
 import { Ball } from "./ball";
 import { Bat } from "./bat";
-import {
-  BALL_H,
-  BALL_SPEED,
-  BALL_V,
-  BAT_H,
-  BAT_SPEED,
-  BAT_V,
-  DEBUG_BALL,
-  DEBUG_LEFT_BAT,
-  DEBUG_MODE,
-  DEBUG_RIGHT_BAT,
-  FPS,
-  SCALE,
-} from "./constants";
+import { CollisionDetector } from "./collisionDetector";
+import { CollisionResolver } from "./collisionResolver";
+import { BALL_SPEED, FPS } from "./constants";
 import { Position } from "./position";
 import { Speed } from "./speed";
 import "./style.css";
+import { drawDebugLines } from "./utils";
 
 export class GameState {
   leftBat: Bat;
@@ -38,6 +28,11 @@ const rightBat = new Bat(new Position(0, 0));
 const ball = new Ball(new Position(0, 0), new Speed(-BALL_SPEED, 0));
 
 var gameState: GameState = new GameState(leftBat, rightBat, ball);
+var collisionResolver: CollisionResolver = new CollisionResolver(gameState);
+var collisionDetector: CollisionDetector = new CollisionDetector(
+  gameState,
+  collisionResolver
+);
 
 const drawCanvas = (
   canvas: HTMLCanvasElement,
@@ -56,131 +51,7 @@ const drawCanvas = (
   leftBat.draw(ctx);
   rightBat.draw(ctx);
   ball.draw(ctx);
-
-  if (DEBUG_MODE) {
-    if (DEBUG_LEFT_BAT) {
-      // Draw line at half of left bat
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, leftBat.position.y + BAT_V * SCALE * 0.5);
-      ctx.lineTo(canvas.width, leftBat.position.y + BAT_V * SCALE * 0.5);
-      ctx.strokeStyle = "#ff0000";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw line at top of left bat
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, leftBat.position.y);
-      ctx.lineTo(canvas.width, leftBat.position.y);
-      ctx.strokeStyle = "#ffF000";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw line at bottom of left bat
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, leftBat.position.y + BAT_V * SCALE);
-      ctx.lineTo(canvas.width, leftBat.position.y + BAT_V * SCALE);
-      ctx.strokeStyle = "lightgreen";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw x axis at left bat left
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(leftBat.position.x, 0);
-      ctx.lineTo(leftBat.position.x, canvas.height);
-      ctx.strokeStyle = "#ffF000";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw x axis at left bat right
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(leftBat.position.x + BAT_H * SCALE, 0);
-      ctx.lineTo(leftBat.position.x + BAT_H * SCALE, canvas.height);
-      ctx.strokeStyle = "blue";
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    if (DEBUG_RIGHT_BAT) {
-      // Draw x axis at right bat right
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(rightBat.position.x + BAT_H * SCALE, 0);
-      ctx.lineTo(rightBat.position.x + BAT_H * SCALE, canvas.height);
-      ctx.strokeStyle = "blue";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw x axis at right bat left
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(rightBat.position.x, 0);
-      ctx.lineTo(rightBat.position.x, canvas.height);
-      ctx.strokeStyle = "#ffF000";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw line at top of right bat
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, rightBat.position.y);
-      ctx.lineTo(canvas.width, rightBat.position.y);
-      ctx.strokeStyle = "#ffF000";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw line at bottom of right bat
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, rightBat.position.y + BAT_V * SCALE);
-      ctx.lineTo(canvas.width, rightBat.position.y + BAT_V * SCALE);
-      ctx.strokeStyle = "lightgreen";
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    if (DEBUG_BALL) {
-      // Draw y axis at ball top
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, ball.position.y);
-      ctx.lineTo(canvas.width, ball.position.y);
-      ctx.strokeStyle = "lightblue";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw x axis at ball left
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(ball.position.x, 0);
-      ctx.lineTo(ball.position.x, canvas.height);
-      ctx.strokeStyle = "lightgreen";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw y axis at ball bottom
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, ball.position.y + BALL_V * SCALE);
-      ctx.lineTo(canvas.width, ball.position.y + BALL_V * SCALE);
-      ctx.strokeStyle = "red";
-      ctx.stroke();
-      ctx.restore();
-
-      // Draw x axis at ball right
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(ball.position.x + BALL_H * SCALE, 0);
-      ctx.lineTo(ball.position.x + BALL_H * SCALE, canvas.height);
-      ctx.strokeStyle = "yellow";
-      ctx.stroke();
-      ctx.restore();
-    }
-  }
+  drawDebugLines(ctx, canvas, gameState);
 };
 
 window.addEventListener("resize", () => drawCanvas(canvas, ctx, gameState));
@@ -229,7 +100,7 @@ const update = (
 ) => {
   ball.moveProcess(canvas.width, canvas.height);
   executeBatMoves();
-  ball.checkBatCollision(leftBat.position, rightBat.position);
+  collisionDetector.detectCollisions();
 };
 
 const gameLoop = () => {
