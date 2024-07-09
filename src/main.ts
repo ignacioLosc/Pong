@@ -1,12 +1,12 @@
-import { Ball } from "./ball";
-import { Bat } from "./bat";
-import { CollisionDetector } from "./collisionDetector";
-import { CollisionResolver } from "./collisionResolver";
+import { Ball } from "./objects/ball";
+import { Bat } from "./objects/bat";
+import { CollisionDetector } from "./collision/collisionDetector";
+import { CollisionResolver } from "./collision/collisionResolver";
 import { BALL_SPEED, FPS } from "./constants";
 import { Position } from "./position";
 import { Speed } from "./speed";
 import "./style.css";
-import { drawDebugLines } from "./utils";
+import { drawDebugLines } from "./utils/utils";
 
 export class GameState {
   leftBat: Bat;

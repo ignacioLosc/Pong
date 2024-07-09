@@ -1,5 +1,5 @@
-import { BAT_H, BAT_SPEED, BAT_V, SCALE } from "./constants";
-import { Position } from "./position";
+import { BAT_H, BAT_SPEED, BAT_V, SCALE } from "../constants";
+import { Position } from "../position";
 
 export class Bat {
   position: Position;

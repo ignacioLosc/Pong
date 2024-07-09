@@ -1,6 +1,6 @@
-import { Position } from "./position";
-import { BALL_H, BALL_SPEED, BALL_V, BAT_H, BAT_V, SCALE } from "./constants";
-import { Speed } from "./speed";
+import { Position } from "../position";
+import { BALL_H, BALL_SPEED, BALL_V, BAT_H, BAT_V, SCALE } from "../constants";
+import { Speed } from "../speed";
 
 export class Ball {
   position: Position;

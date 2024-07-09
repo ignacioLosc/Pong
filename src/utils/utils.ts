@@ -8,8 +8,8 @@ import {
   DEBUG_MODE,
   DEBUG_RIGHT_BAT,
   SCALE,
-} from "./constants";
-import { GameState } from "./main";
+} from "../constants";
+import { GameState } from "../main";
 
 export const drawDebugLines = (
   ctx: CanvasRenderingContext2D,

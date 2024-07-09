@@ -1,4 +1,4 @@
-import { GameState } from "./main";
+import { GameState } from "../main";
 
 export class CollisionResolver {
   gameState: GameState;

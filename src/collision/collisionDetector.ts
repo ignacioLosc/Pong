@@ -1,6 +1,6 @@
 import { CollisionResolver } from "./collisionResolver";
-import { BALL_H, BALL_V, BAT_H, BAT_V, SCALE } from "./constants";
-import { GameState } from "./main";
+import { BALL_H, BALL_V, BAT_H, BAT_V, SCALE } from "../constants";
+import { GameState } from "../main";
 
 export class CollisionDetector {
   gameState: GameState;
