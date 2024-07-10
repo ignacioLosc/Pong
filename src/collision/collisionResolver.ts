@@ -9,16 +9,16 @@ export class CollisionResolver {
 
   private increasedBallYSpeed() {
     return Math.abs(
-      this.gameState.ball.speed.speedX +
-        this.gameState.ball.speed.speedX *
+      this.gameState.ball.getXSpeed() +
+        this.gameState.ball.getXSpeed() *
           (BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)
     );
   }
 
   private increasedAndMirroredBallXSpeed() {
     return (
-      (this.gameState.ball.speed.speedX +
-        this.gameState.ball.speed.speedX *
+      (this.gameState.ball.getXSpeed() +
+        this.gameState.ball.getXSpeed() *
           (BALL_SPEED_PERCENTAGE_INCREASE_ON_COLLISION * 0.01)) *
       -1
     );
@@ -27,19 +27,16 @@ export class CollisionResolver {
   resolveBallBatCollision(collisionType: string) {
     switch (collisionType) {
       case "HALF":
-        this.gameState.ball.speed.speedY = 0;
-        this.gameState.ball.speed.speedX =
-          this.gameState.ball.speed.speedX * -1;
+        this.gameState.ball.setYSpeed(0);
+        this.gameState.ball.setXSpeed(this.gameState.ball.getXSpeed() * -1);
         break;
       case "TOP":
-        this.gameState.ball.speed.speedY = this.increasedBallYSpeed() * -1;
-        this.gameState.ball.speed.speedX =
-          this.increasedAndMirroredBallXSpeed();
+        this.gameState.ball.setYSpeed(this.increasedBallYSpeed() * -1);
+        this.gameState.ball.setXSpeed(this.increasedAndMirroredBallXSpeed());
         break;
       case "BOTTOM":
-        this.gameState.ball.speed.speedY = this.increasedBallYSpeed();
-        this.gameState.ball.speed.speedX =
-          this.increasedAndMirroredBallXSpeed();
+        this.gameState.ball.setYSpeed(this.increasedBallYSpeed());
+        this.gameState.ball.setXSpeed(this.increasedAndMirroredBallXSpeed());
         break;
       default:
     }
