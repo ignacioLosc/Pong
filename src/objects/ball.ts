@@ -11,6 +11,38 @@ export class Ball {
     this.speed = speed;
   }
 
+  getYSpeed() {
+    return this.speed.speedY;
+  }
+
+  getXSpeed() {
+    return this.speed.speedX;
+  }
+
+  setYSpeed(speedY: number) {
+    this.speed.speedY = speedY;
+  }
+
+  setXSpeed(speedX: number) {
+    this.speed.speedX = speedX;
+  }
+
+  getYTopPosition() {
+    return this.position.y;
+  }
+
+  getYBottomPosition() {
+    return this.position.y + BALL_V * SCALE;
+  }
+
+  getXLeftPosition() {
+    return this.position.x;
+  }
+
+  getXRightPosition() {
+    return this.position.x + BALL_V * SCALE;
+  }
+
   setInitialPosition(initialPosition: Position) {
     this.initialPosition = initialPosition;
   }
