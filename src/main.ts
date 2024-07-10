@@ -117,25 +117,25 @@ var controller: { [keyName: string]: { pressed: boolean; func: () => void } } =
     KeyW: {
       pressed: false,
       func: () => {
-        return leftBat.moveUp("LEFT");
+        return leftBat.moveUp(0);
       },
     },
     KeyS: {
       pressed: false,
       func: () => {
-        return leftBat.moveDown("LEFT", canvas);
+        return leftBat.moveDown(canvas.height);
       },
     },
     ArrowUp: {
       pressed: false,
       func: () => {
-        return rightBat.moveUp("RIGHT");
+        return rightBat.moveUp(0);
       },
     },
     ArrowDown: {
       pressed: false,
       func: () => {
-        return rightBat.moveDown("RIGHT", canvas);
+        return rightBat.moveDown(canvas.height);
       },
     },
   };

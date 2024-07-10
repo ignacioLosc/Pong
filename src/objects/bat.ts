@@ -39,34 +39,18 @@ export class Bat {
     ctx.restore();
   }
 
-  moveUp(type: string) {
-    if (type === "LEFT") {
-      if (this.getYTopPosition() - BAT_SPEED <= 0) {
-        this.position.y = 0;
-      } else {
-        this.position.y -= BAT_SPEED;
-      }
+  moveUp(canvasLimit: number) {
+    if (this.getYTopPosition() - BAT_SPEED <= canvasLimit) {
+      this.position.y = canvasLimit;
     } else {
-      if (this.getYTopPosition() - BAT_SPEED <= 0) {
-        this.position.y = 0;
-      } else {
-        this.position.y -= BAT_SPEED;
-      }
+      this.position.y -= BAT_SPEED;
     }
   }
-  moveDown(type: string, canvas: any) {
-    if (type === "LEFT") {
-      if (this.getYBottomPosition() + BAT_SPEED >= canvas.height) {
-        this.position.y = canvas.height - BAT_V * SCALE;
-      } else {
-        this.position.y += BAT_SPEED;
-      }
+  moveDown(canvasLimit: number) {
+    if (this.getYBottomPosition() + BAT_SPEED >= canvasLimit) {
+      this.position.y = canvasLimit - BAT_V * SCALE;
     } else {
-      if (this.getYBottomPosition() + BAT_SPEED >= canvas.height) {
-        this.position.y = canvas.height - BAT_V * SCALE;
-      } else {
-        this.position.y += BAT_SPEED;
-      }
+      this.position.y += BAT_SPEED;
     }
   }
 }
