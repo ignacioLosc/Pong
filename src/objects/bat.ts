@@ -12,7 +12,7 @@ export class Bat {
   }
 
   getYHalfPosition() {
-    this.position.y + BAT_V * SCALE * 0.5;
+    return this.position.y + BAT_V * SCALE * 0.5;
   }
 
   getYBottomPosition() {
