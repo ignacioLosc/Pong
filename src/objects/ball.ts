@@ -32,7 +32,7 @@ export class Ball {
   }
 
   getYHalfPosition() {
-    this.position.y + BALL_V * SCALE * 0.5;
+    return this.position.y + BALL_V * SCALE * 0.5;
   }
 
   getYBottomPosition() {
