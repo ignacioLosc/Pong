@@ -7,6 +7,26 @@ export class Bat {
     this.position = position;
   }
 
+  getYTopPosition() {
+    return this.position.y;
+  }
+
+  getYHalfPosition() {
+    this.position.y + BAT_V * SCALE * 0.5;
+  }
+
+  getYBottomPosition() {
+    return this.position.y + BAT_V * SCALE;
+  }
+
+  getXLeftPosition() {
+    return this.position.x;
+  }
+
+  getXRightPosition() {
+    return this.position.x + BAT_H * SCALE;
+  }
+
   draw(ctx: CanvasRenderingContext2D) {
     ctx.save();
     ctx.fillStyle = "white";
