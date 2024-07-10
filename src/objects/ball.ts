@@ -1,5 +1,5 @@
 import { Position } from "../position";
-import { BALL_H, BALL_SPEED, BALL_V, BAT_H, BAT_V, SCALE } from "../constants";
+import { BALL_H, BALL_SPEED, BALL_V, SCALE } from "../constants";
 import { Speed } from "../speed";
 
 export class Ball {
@@ -29,6 +29,10 @@ export class Ball {
 
   getYTopPosition() {
     return this.position.y;
+  }
+
+  getYHalfPosition() {
+    this.position.y + BALL_V * SCALE * 0.5;
   }
 
   getYBottomPosition() {
