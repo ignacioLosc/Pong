@@ -41,13 +41,13 @@ export class Bat {
 
   moveUp(type: string) {
     if (type === "LEFT") {
-      if (this.position.y - BAT_SPEED <= 0) {
+      if (this.getYTopPosition() - BAT_SPEED <= 0) {
         this.position.y = 0;
       } else {
         this.position.y -= BAT_SPEED;
       }
     } else {
-      if (this.position.y - BAT_SPEED <= 0) {
+      if (this.getYTopPosition() - BAT_SPEED <= 0) {
         this.position.y = 0;
       } else {
         this.position.y -= BAT_SPEED;
@@ -56,13 +56,13 @@ export class Bat {
   }
   moveDown(type: string, canvas: any) {
     if (type === "LEFT") {
-      if (this.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
+      if (this.getYBottomPosition() + BAT_SPEED >= canvas.height) {
         this.position.y = canvas.height - BAT_V * SCALE;
       } else {
         this.position.y += BAT_SPEED;
       }
     } else {
-      if (this.position.y + BAT_SPEED + BAT_V * SCALE >= canvas.height) {
+      if (this.getYBottomPosition() + BAT_SPEED >= canvas.height) {
         this.position.y = canvas.height - BAT_V * SCALE;
       } else {
         this.position.y += BAT_SPEED;
