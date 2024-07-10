@@ -1,6 +1,7 @@
 import { CollisionResolver } from "./collisionResolver";
 import { BALL_H, BALL_V, BAT_H, BAT_V, SCALE } from "../constants";
 import { GameState } from "../main";
+import { Bat } from "../objects/bat";
 
 export class CollisionDetector {
   gameState: GameState;
@@ -21,44 +22,31 @@ export class CollisionDetector {
     }
   }
 
+  checkYAxisBatCollision(bat: Bat) {
+    if (this.gameState.ball.getYHalfPosition() === bat.getYHalfPosition()) {
+      return "HALF";
+    } else if (
+      this.gameState.ball.getYHalfPosition() > bat.getYHalfPosition() &&
+      this.gameState.ball.getYTopPosition() <= bat.getYBottomPosition()
+    ) {
+      return "BOTTOM";
+    } else if (
+      this.gameState.ball.getYHalfPosition() <= bat.getYHalfPosition() &&
+      this.gameState.ball.getYBottomPosition() >= bat.getYTopPosition()
+    ) {
+      return "TOP";
+    }
+  }
+
   checkRightBatCollision() {
     if (
-      this.gameState.ball.position.x + BALL_H * SCALE >=
-        this.gameState.rightBat.position.x &&
-      this.gameState.ball.position.x + BALL_H * SCALE <=
-        this.gameState.rightBat.position.x + BAT_H * SCALE &&
-      this.gameState.ball.speed.speedX > 0
+      this.gameState.ball.getXRightPosition() >=
+        this.gameState.rightBat.getXLeftPosition() &&
+      this.gameState.ball.getXRightPosition() <=
+        this.gameState.rightBat.getXRightPosition() &&
+      this.gameState.ball.getXSpeed() > 0
     ) {
-      if (
-        this.gameState.ball.position.y * 0.5 ===
-        this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5
-      ) {
-        return "HALF";
-      } else if (
-        (this.gameState.ball.position.y >
-          this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y <=
-            this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 * 2) ||
-        (this.gameState.ball.position.y + BALL_V * SCALE >
-          this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y + BALL_V * SCALE <=
-            this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 * 2)
-      ) {
-        // console.log("lower half");
-        return "BOTTOM";
-      } else if (
-        (this.gameState.ball.position.y <=
-          this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y >=
-            this.gameState.rightBat.position.y) ||
-        (this.gameState.ball.position.y + BALL_V * SCALE <=
-          this.gameState.rightBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y + BALL_V * SCALE >=
-            this.gameState.rightBat.position.y)
-      ) {
-        // console.log("upper half");
-        return "TOP";
-      }
+      return this.checkYAxisBatCollision(this.gameState.rightBat);
     } else {
       return null;
     }
@@ -66,41 +54,13 @@ export class CollisionDetector {
 
   checkLeftBatCollision() {
     if (
-      this.gameState.ball.position.x <=
-        this.gameState.leftBat.position.x + BAT_H * SCALE &&
-      this.gameState.ball.position.x >= this.gameState.leftBat.position.x &&
-      this.gameState.ball.speed.speedX < 0
+      this.gameState.ball.getXLeftPosition() <=
+        this.gameState.leftBat.getXRightPosition() &&
+      this.gameState.ball.getXLeftPosition() >=
+        this.gameState.leftBat.getXLeftPosition() &&
+      this.gameState.ball.getXSpeed() < 0
     ) {
-      if (
-        this.gameState.ball.position.y ===
-        this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5
-      ) {
-        return "HALF";
-      } else if (
-        (this.gameState.ball.position.y >
-          this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y <=
-            this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 * 2) ||
-        (this.gameState.ball.position.y + BALL_V * SCALE >
-          this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y + BALL_V * SCALE <=
-            this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 * 2)
-      ) {
-        // console.log("lower half");
-        return "BOTTOM";
-      } else if (
-        (this.gameState.ball.position.y <=
-          this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y >=
-            this.gameState.leftBat.position.y) ||
-        (this.gameState.ball.position.y + BALL_V * SCALE <=
-          this.gameState.leftBat.position.y + BAT_V * SCALE * 0.5 &&
-          this.gameState.ball.position.y + BALL_V * SCALE >=
-            this.gameState.leftBat.position.y)
-      ) {
-        // console.log("upper half");
-        return "TOP";
-      }
+      return this.checkYAxisBatCollision(this.gameState.leftBat);
     } else {
       return null;
     }
