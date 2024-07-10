@@ -48,7 +48,8 @@ export class Bat {
   }
   moveDown(canvasLimit: number) {
     if (this.getYBottomPosition() + BAT_SPEED >= canvasLimit) {
-      this.position.y = canvasLimit - BAT_V * SCALE;
+      this.position.y =
+        canvasLimit - (this.getYBottomPosition() - this.getYTopPosition());
     } else {
       this.position.y += BAT_SPEED;
     }
