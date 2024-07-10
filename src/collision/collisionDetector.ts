@@ -35,6 +35,8 @@ export class CollisionDetector {
       this.gameState.ball.getYBottomPosition() >= bat.getYTopPosition()
     ) {
       return "TOP";
+    } else {
+      return null;
     }
   }
 
